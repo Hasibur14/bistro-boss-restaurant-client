@@ -11,8 +11,6 @@ import SectionTitle from "../../../components/SectionTitle/SectionTitle";
 
 
 
-
-
 const Testimonials = () => {
 
     const [reviews, serReviews] = useState([])
@@ -42,7 +40,7 @@ const Testimonials = () => {
                             />
                             <BiSolidQuoteLeft className='text-9xl opacity-70' />
                             <p className=''>{review.details}</p>
-                            <h2 className="text-2xl text-orange-500 font-semibold">{review.name}</h2>
+                            <h2 className="text-2xl text-yellow-600 font-bold uppercase">{review.name}</h2>
                         </div>
                     </SwiperSlide>)
                 }
