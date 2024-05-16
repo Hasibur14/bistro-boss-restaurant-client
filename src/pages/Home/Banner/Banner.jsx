@@ -13,24 +13,24 @@ const Banner = () => {
         <div>
             <Carousel>
                 <div>
-                    <img src={banner1} />
+                    <img className='rounded-b-md' src={banner1} />
                 </div>
                 <div>
-                    <img src={banner2} />
+                    <img className='rounded-b-md' src={banner2} />
 
                 </div>
                 <div>
-                    <img src={banner3} />
+                    <img className='rounded-b-md' src={banner3} />
                 </div>
                 <div>
-                    <img src={banner4} />
+                    <img className='rounded-b-md' src={banner4} />
                 </div>
                 <div>
-                    <img src={banner5} />
+                    <img className='rounded-b-md' src={banner5} />
 
                 </div>
                 <div>
-                    <img src={banner6} />
+                    <img className='rounded-b-md' src={banner6} />
                 </div>
             </Carousel>
         </div>
