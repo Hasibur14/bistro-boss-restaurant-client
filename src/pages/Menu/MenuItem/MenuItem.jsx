@@ -1,5 +1,4 @@
 
-
 const MenuItem = ({ item }) => {
     const { name, image, recipe, price } = item;
 
