@@ -9,16 +9,18 @@ import Cover from '../../Shared/Cover/Cover';
 
 const Order = () => {
 
-    const [tabIndex, setTabIndex] = useState(0);
-    const [menu] = useMenu();
+    const categories = ['salad', 'pizza', 'soup', 'dessert', 'drinks'];
     const { category } = useParams();
-    console.log(category)
+    const initialIndex = categories.indexOf(category)
+    const [tabIndex, setTabIndex] = useState(initialIndex);
+    const [menu] = useMenu();
+  
 
     const dessert = menu.filter(item => item.category === 'dessert')
     const soup = menu.filter(item => item.category === 'soup')
     const salad = menu.filter(item => item.category === 'salad')
     const pizza = menu.filter(item => item.category === 'pizza')
-    const offered = menu.filter(item => item.category === 'offered')
+    const  drinks = menu.filter(item => item.category === ' drinks')
 
 
     return (
@@ -75,7 +77,7 @@ const Order = () => {
                     <TabPanel>
                         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-14 lg:gap-20'>
                             {
-                                offered.map(item => (
+                                drinks.map(item => (
                                     <FoodCard key={item._id} item={item}></FoodCard>
                                 ))
                             }
