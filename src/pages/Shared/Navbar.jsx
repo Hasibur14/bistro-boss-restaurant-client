@@ -1,28 +1,49 @@
-import { NavLink } from "react-router-dom";
+import { useContext } from "react";
+import { Link, NavLink } from "react-router-dom";
+import { AuthContext } from "../../Providers/AuthProvider";
 
 const Navbar = () => {
 
+    const { user, logOut } = useContext(AuthContext)
+    console.log(user)
+
+    const handleLogOut = () => {
+        logOut()
+            .then(() => {
+                console.log('User logged out successfully');
+            })
+            .catch(error => {
+                console.error('Log out error:', error);
+            });
+    };
 
     const links = (
         <>
-        <li>
-        <NavLink to="/" className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "text-white  px-2 py-2 border-2 border-yellow-600 rounded-md" : "hover:text-yellow-600"} > <span>Home</span> </NavLink>
-        </li>
-        <li>
-        <NavLink to="/ourMenu" className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "text-white  px-2 py-2 border-2 border-yellow-600 rounded-md" : "hover:text-yellow-600"} > <span>Our Menu</span> </NavLink>
-        </li>
-        <li>
-        <NavLink to="/order/salad" className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "text-white  px-2 py-2 border-2 border-yellow-600 rounded-md" : "hover:text-yellow-600"} > <span>Our Order</span> </NavLink>
-        </li>
-        <li>
-        <NavLink to="/login" className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "text-white  px-2 py-2 border-2 border-yellow-600 rounded-md" : "hover:text-yellow-600"} > <span>Login</span> </NavLink>
-        </li>
+            <li>
+                <NavLink to="/" className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "text-white  px-2 py-2 border-2 border-yellow-600 rounded-md" : "hover:text-yellow-600"} > <span>Home</span> </NavLink>
+            </li>
+            <li>
+                <NavLink to="/ourMenu" className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "text-white  px-2 py-2 border-2 border-yellow-600 rounded-md" : "hover:text-yellow-600"} > <span>Our Menu</span> </NavLink>
+            </li>
+            <li>
+                <NavLink to="/order/salad" className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "text-white  px-2 py-2 border-2 border-yellow-600 rounded-md" : "hover:text-yellow-600"} > <span>Our Order</span> </NavLink>
+            </li>
+
+            {
+                user ? <>
+                    <span>{user?.displayName}</span>
+                    <button onClick={handleLogOut} className="">LogOut</button>
+                </> : <>
+                    <li><Link to="/login">Login</Link></li>
+                </>
+            }
+
         </>
     )
 
     return (
         <div>
-            <div className="container mx-auto navbar fixed z-10 bg-opacity-30 bg-black text-white">
+            <div className="container mx-auto navbar fixed z-10 bg-opacity-30 bg-black text-white text-center justify-center">
                 <div className="navbar-start">
                     <div className="dropdown">
                         <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -37,7 +58,7 @@ const Navbar = () => {
                     <a className=" text-xl">Bistro Boss</a>
                 </div>
                 <div className="navbar-center hidden lg:flex">
-                    <ul className=" menu-horizontal space-x-4 px-1 text-white">
+                    <ul className=" menu-horizontal space-x-4 px-1 text-white ">
                         {links}
                     </ul>
                 </div>

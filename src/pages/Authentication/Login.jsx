@@ -1,15 +1,19 @@
-import { useContext, useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { Helmet } from 'react-helmet-async';
 import toast from 'react-hot-toast';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { LoadCanvasTemplate, loadCaptchaEnginge, validateCaptcha } from 'react-simple-captcha';
+import Swal from 'sweetalert2';
 import { AuthContext } from '../../Providers/AuthProvider';
 
 const Login = () => {
 
-    const captchaRef = useRef(null)
     const [disable, setDisable] = useState(true);
-
     const { signIn } = useContext(AuthContext)
+    const navigate = useNavigate()
+    const location = useLocation()
+
+    const from = location.state?.from?.pathname || '/';
 
     useEffect(() => {
         loadCaptchaEnginge(6);
@@ -25,13 +29,30 @@ const Login = () => {
             .then(result => {
                 const user = result.user;
                 console.log(user)
-                toast.success('Sign in successfully')
+                Swal.fire({
+                    title: "User Login successfully",
+                    showClass: {
+                        popup: `
+                        animate__animated
+                        animate__fadeInUp
+                        animate__faster
+                      `
+                    },
+                    hideClass: {
+                        popup: `
+                        animate__animated
+                        animate__fadeOutDown
+                        animate__faster
+                      `
+                    }
+                });
+                navigate(from, {replace: true});
             })
     };
 
 
-    const handleValidateCaptcha = () => {
-        const user_captcha_value = captchaRef.current.value
+    const handleValidateCaptcha = (e) => {
+        const user_captcha_value = e.target.value;
         if (validateCaptcha(user_captcha_value) == true) {
             setDisable(false)
             toast.success('Captcha Matched')
@@ -44,6 +65,9 @@ const Login = () => {
 
     return (
         <div>
+            <Helmet>
+                <title>Login | Bistro Boss</title>
+            </Helmet>
             <div className="hero min-h-screen bg-base-200">
                 <div className="hero-content flex-col md:flex-row-reverse">
                     <div className="text-center md:w-1/2 lg:text-left">
@@ -76,11 +100,11 @@ const Login = () => {
                                 <label className="label">
                                     < LoadCanvasTemplate />
                                 </label>
-                                <input type="text"
+                                <input
+                                    onBlur={handleValidateCaptcha}
+                                    type="text"
                                     name="captcha"
-                                    ref={captchaRef}
                                     placeholder="type the captcha above" className="input input-bordered" required />
-                                <button onClick={handleValidateCaptcha} className="btn btn-outline btn-xs mt-4">Validation</button>
 
                             </div>
                             <div className="form-control mt-6">

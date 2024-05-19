@@ -23,19 +23,21 @@ const AuthProvider = ({ children }) => {
     //sign in
     const signIn = (email, password) => {
         setLoading(true)
-        return signInWithEmailAndPassword(email, password)
+        return signInWithEmailAndPassword(auth, email, password)
     };
 
     //log out
+    
     const logOut = () => {
         setLoading(true);
-        return signOut(auth)
+        return signOut(auth);
     }
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, currentUser => {
-            setUser('current user', currentUser);
-            setLoading(false)
+            setUser(currentUser);
+            console.log('current user', currentUser);
+            setLoading(false);
         });
         return () => {
             return unsubscribe();
