@@ -1,25 +1,49 @@
+import toast from "react-hot-toast";
 import { useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import useAuth from "../../../hooks/useAuth";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import useCart from "../../../hooks/useCart";
 
 
 
 const FoodCard = ({ item }) => {
 
-    const { name, image, price, recipe ,_id} = item;
+    const { name, image, price, recipe, _id } = item;
     const { user } = useAuth()
     const navigate = useNavigate();
     const location = useLocation();
+    const axiosSecure = useAxiosSecure();
+    const [, refetch] = useCart()
 
-    const handleAddToCart = (food) => {
+    const handleAddToCart = () => {
         if (user && user?.email) {
-           const cartItem = {
-            menuId : _id,
-            email: user?.email,
-            name,
-            image,
-            price
-           }
+
+            const cartItem = {
+                menuId: _id,
+                email: user?.email,
+                name,
+                image,
+                price
+            }
+
+            axiosSecure.post('/carts', cartItem)
+                .then(res => {
+
+                    if (res.data.insertedId) {
+                        // Swal.fire({
+                        //     position: "top-end",
+                        //     icon: "success",
+                        //     title: `${name} added to your cart`,
+                        //     showConfirmButton: false,
+                        //     timer: 20000
+                        //   });
+                        toast.success(`${name} added to your cart`)
+                        //refetch cart to update the cart items count
+                        refetch()
+                    }
+
+                })
         }
         else {
             Swal.fire({
@@ -51,7 +75,7 @@ const FoodCard = ({ item }) => {
                         <p className="dark:text-gray-800">{recipe}</p>
                     </div>
                     <button
-                        onClick={() => handleAddToCart(item)}
+                        onClick={ handleAddToCart}
                         className="flex items-center btn btn-outline ml-16 border-0 border-b-4 border-yellow-600 uppercase justify-center w-1/2 p-3 font-semibold tracking-wide rounded-md dark:bg-purple-600 dark:text-gray-50">add to card</button>
                 </div>
             </div>
