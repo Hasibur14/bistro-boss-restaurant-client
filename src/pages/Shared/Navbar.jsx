@@ -32,10 +32,12 @@ const Navbar = () => {
                 <NavLink to="/order/salad" className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "text-white  px-2 py-2 border-2 border-yellow-600 rounded-md" : "hover:text-yellow-600"} > <span>Our Order</span> </NavLink>
             </li>
             <li>
-                <button className="btn">
-                <FaShoppingCart />
-                    <div className="badge badge-secondary">+{cart.length}</div>
-                </button>
+                <Link to='/dashboard/cart'>
+                    <button className="btn">
+                        <FaShoppingCart />
+                        <div className="badge badge-secondary">+{cart.length}</div>
+                    </button>
+                </Link>
             </li>
 
             {
