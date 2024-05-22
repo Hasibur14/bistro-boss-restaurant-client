@@ -7,6 +7,7 @@ import Cart from "../pages/Dashboard/Cart";
 import Home from "../pages/Home/Home/Home";
 import OurMenu from "../pages/Menu/OurMenu/OurMenu";
 import Order from "../pages/Order/Order/Order";
+import PrivetRoute from "./PrivetRoute";
 
 const router = createBrowserRouter([
     {
@@ -36,12 +37,12 @@ const router = createBrowserRouter([
         ]
     },
     {
-        path: '/dashboard', 
-        element: <Dashboard></Dashboard>,
+        path: '/dashboard',
+        element: <PrivetRoute> <Dashboard></Dashboard></PrivetRoute>,
         children: [
             {
                 path: 'cart',
-               element: <Cart></Cart>
+                element: <Cart></Cart>
             }
         ]
     }

@@ -1,4 +1,4 @@
-import { FaAd, FaCalculator, FaHome, FaList, FaSearch, FaShoppingCart } from "react-icons/fa";
+import { FaAd, FaCalculator, FaEnvelope, FaHome, FaList, FaSearch, FaShoppingBag, FaShoppingCart } from "react-icons/fa";
 import { NavLink, Outlet } from "react-router-dom";
 
 
@@ -12,7 +12,7 @@ const Dashboard = () => {
                 </div>
                 <ul className="menu space-y-2 font-semibold">
                     <li>
-                        <NavLink to='/dashboard/userHome'>
+                        <NavLink to='/'>
                             <FaHome></FaHome>
                             USER  HOME
                         </NavLink>
@@ -48,6 +48,7 @@ const Dashboard = () => {
                     <span className="mt-96">
                         <hr />
                     </span>
+                    {/* shared item */}
                     <li>
                         <NavLink to='/'>
                             <FaHome></FaHome>
@@ -56,19 +57,19 @@ const Dashboard = () => {
                     </li>
                     <li>
                         <NavLink to='/order'>
-                            <FaHome></FaHome>
+                        <FaSearch></FaSearch>
                             MENU
                         </NavLink>
                     </li>
                     <li>
                         <NavLink to='/'>
-                            <FaSearch></FaSearch>
+                           <FaShoppingBag></FaShoppingBag>
                             SHOP
                         </NavLink>
                     </li>
                     <li>
                         <NavLink to='/'>
-                            <FaHome></FaHome>
+                         <FaEnvelope></FaEnvelope>
                             CONTACT
                         </NavLink>
                     </li>

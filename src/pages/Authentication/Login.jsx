@@ -5,6 +5,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { LoadCanvasTemplate, loadCaptchaEnginge, validateCaptcha } from 'react-simple-captcha';
 import Swal from 'sweetalert2';
 import { AuthContext } from '../../Providers/AuthProvider';
+import SocialLogin from '../../components/SocialLogin/SocialLogin';
 
 const Login = () => {
 
@@ -46,7 +47,7 @@ const Login = () => {
                       `
                     }
                 });
-                navigate(from, {replace: true});
+                navigate(from, { replace: true });
             })
     };
 
@@ -114,6 +115,8 @@ const Login = () => {
                         <p className='text-center mb-2'>
                             <small>New Here? <Link to='/signUp'>Create an account.</Link></small>
                         </p>
+                        <div className="divider px-6">OR</div>
+                        <SocialLogin></SocialLogin>
                     </div>
                 </div>
             </div>

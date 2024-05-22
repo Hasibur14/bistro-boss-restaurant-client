@@ -2,21 +2,42 @@ import { useContext } from "react";
 import { Helmet } from "react-helmet-async";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Providers/AuthProvider";
+import SocialLogin from "../../components/SocialLogin/SocialLogin";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
 
 const SignUp = () => {
+
+    const axiosPublic = useAxiosPublic();
+    const navigate = useNavigate()
     const { register, handleSubmit, formState: { errors } } = useForm();
 
-    const { createUser } = useContext(AuthContext);
+    const { createUser, updateUserProfile } = useContext(AuthContext);
 
-    const onSubmit = (data) => {
-        console.log(data)
+    const onSubmit = data => {
+        console.log(data);
         createUser(data.email, data.password)
             .then(result => {
                 const loggedUser = result.user;
-                console.log(loggedUser)
-                toast.success('Create user successfully')
+                console.log(loggedUser);
+                updateUserProfile(data.name, data.photoURL)
+                    .then(() => {
+                        //crate user entry in db
+                        const userInfo = {
+                            name: data.name,
+                            email: data.email,
+                        }
+                        axiosPublic.post(`/users`, userInfo)
+                            .then(res => {
+                                if (res.data.insertedId) {
+                                    console.log('user profile info updated')
+                                    toast.success('Create User Successfully')
+                                    navigate('/');
+                                }
+                            })
+                    })
+                    .catch(error => console.log(error))
             })
     };
 
@@ -85,6 +106,8 @@ const SignUp = () => {
                         <p className="text-center mb-2">
                             <small>Already have an account?<Link to='/login' className="text-red-500"> Login</Link></small>
                         </p>
+                        <div className="divider px-6">OR</div>
+                      <SocialLogin></SocialLogin>
                     </div>
                 </div>
             </div>
