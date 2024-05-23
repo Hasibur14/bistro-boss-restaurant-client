@@ -37,7 +37,11 @@ const SignUp = () => {
                                 }
                             })
                     })
-                    .catch(error => console.log(error))
+                    .catch(error =>{
+                        console.log(error)
+                        toast.error(error.message)
+                    })
+                  
             })
     };
 
