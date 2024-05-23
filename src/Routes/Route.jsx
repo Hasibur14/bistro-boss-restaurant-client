@@ -3,6 +3,7 @@ import Dashboard from "../Layout/Dashboard/Dashboard";
 import MainLayout from "../Layout/MainLayout";
 import Login from "../pages/Authentication/Login";
 import SignUp from "../pages/Authentication/SignUp";
+import AllUsers from "../pages/Dashboard/AllUsers/AllUsers";
 import Cart from "../pages/Dashboard/Cart";
 import Home from "../pages/Home/Home/Home";
 import OurMenu from "../pages/Menu/OurMenu/OurMenu";
@@ -43,6 +44,13 @@ const router = createBrowserRouter([
             {
                 path: 'cart',
                 element: <Cart></Cart>
+            },
+
+
+            //admin routes
+            {
+              path: 'users',
+              element: <AllUsers></AllUsers>  
             }
         ]
     }
