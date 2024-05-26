@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import useCart from "../../hooks/useCart";
@@ -43,7 +44,13 @@ const Cart = () => {
             <div className="flex justify-evenly p-8">
                 <h2 className="text-5xl">Item: {cart.length}</h2>
                 <h2 className="text-5xl">Total Price: ${totalPrice}</h2>
-                <button className="btn px-4 bg-[#D1A054] text-white hover:bg-yellow-500">PAY</button>
+                {
+                    cart.length ? <Link to='/dashboard/payment'>
+                        <button  className="btn px-4 bg-[#D1A054] text-white hover:bg-orange-500 hover:scale-110">PAY</button>
+                    </Link>
+                        :
+                        <button disabled className="btn px-4 bg-[#D1A054] text-white hover:bg-orange-500 hover:scale-110">PAY</button>
+                }
             </div>
 
             <div>

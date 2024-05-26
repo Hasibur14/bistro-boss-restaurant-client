@@ -6,6 +6,9 @@ import SignUp from "../pages/Authentication/SignUp";
 import AddItems from "../pages/Dashboard/AddItems/AddItems";
 import AllUsers from "../pages/Dashboard/AllUsers/AllUsers";
 import Cart from "../pages/Dashboard/Cart";
+import ManageItem from "../pages/Dashboard/ManageItem/ManageItem";
+import Payment from "../pages/Dashboard/Payment/Payment";
+import UpdateItem from "../pages/Dashboard/UpdateItem/UpdateItem";
 import Home from "../pages/Home/Home/Home";
 import OurMenu from "../pages/Menu/OurMenu/OurMenu";
 import Order from "../pages/Order/Order/Order";
@@ -47,6 +50,10 @@ const router = createBrowserRouter([
                 path: 'cart',
                 element: <Cart></Cart>
             },
+            {
+                path: 'payment',
+                element: <Payment></Payment>
+            },
 
 
             //admin routes
@@ -57,6 +64,15 @@ const router = createBrowserRouter([
             {
                 path: 'addItems',
                 element: <AdminRoute><AddItems></AddItems></AdminRoute>
+            },
+            {
+                path: 'manageItem',
+                element: <AdminRoute><ManageItem></ManageItem></AdminRoute>
+            },
+            {
+                path: 'updateItem/:id',
+                element: <AdminRoute><UpdateItem></UpdateItem></AdminRoute>,
+                loader: ({ params }) => fetch(`http://localhost:5000/menu/${params.id}`)
             }
         ]
     }
