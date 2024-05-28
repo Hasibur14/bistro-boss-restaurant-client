@@ -2,12 +2,14 @@ import { useContext } from "react";
 import { FaShoppingCart } from "react-icons/fa";
 import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../../Providers/AuthProvider";
+import useAdmin from "../../hooks/useAdmin";
 import useCart from "../../hooks/useCart";
 
 
 const Navbar = () => {
 
     const { user, logOut } = useContext(AuthContext);
+    const [isAdmin] = useAdmin()
     const [cart] = useCart()
 
     const handleLogOut = () => {
@@ -29,12 +31,21 @@ const Navbar = () => {
                 <NavLink to="/ourMenu" className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "text-white  px-2 py-2 border-2 border-yellow-600 rounded-md" : "hover:text-yellow-600"} > <span>Our Menu</span> </NavLink>
             </li>
             <li>
-                <NavLink to="/order/salad" className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "text-white  px-2 py-2 border-2 border-yellow-600 rounded-md" : "hover:text-yellow-600"} > <span>Our Order</span> </NavLink>
+                <NavLink to="/order/salad" className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "text-white  px-2 py-2 border-2 border-yellow-600 rounded-md" : "hover:text-yellow-600"} > <span>Order Food</span> </NavLink>
             </li>
             <li>
+                <NavLink to="/secret" className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "text-white  px-2 py-2 border-2 border-yellow-600 rounded-md" : "hover:text-yellow-600"} > <span>Secret</span> </NavLink>
+            </li>
+            {
+              user && isAdmin &&  <li><Link to='/dashboard/adminHome'>Dashboard</Link></li>
+            }
+            {
+              user && !isAdmin &&  <li><Link to='/dashboard/userHome'>Dashboard</Link></li>
+            }
+            <li>
                 <Link to='/dashboard/cart'>
-                    <button className="btn">
-                        <FaShoppingCart />
+                    <button className="text-2xl flex hover:btn">
+                        <FaShoppingCart className="" />
                         <div className="badge badge-secondary">+{cart.length}</div>
                     </button>
                 </Link>

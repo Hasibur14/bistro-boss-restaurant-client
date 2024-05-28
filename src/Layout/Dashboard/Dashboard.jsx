@@ -9,6 +9,7 @@ const Dashboard = () => {
     const [cart] = useCart();
     const [isAdmin] = useAdmin();
 
+
     return (
         <div className="flex">
             <div className="w-64 min-h-screen bg-[#D1A054]">
@@ -20,7 +21,7 @@ const Dashboard = () => {
                     {
                         isAdmin ? <>
                             <li>
-                                <NavLink to='/'>
+                                <NavLink to='/dashboard/adminHome'>
                                     <FaHome></FaHome>
                                     ADMIN HOME
                                 </NavLink>
@@ -56,8 +57,9 @@ const Dashboard = () => {
                         </>
                             :
                             <>
+                            {/* User */}
                                 <li>
-                                    <NavLink to='/'>
+                                    <NavLink to='/dashboard/userHome'>
                                         <FaHome></FaHome>
                                         USER  HOME
                                     </NavLink>
